@@ -18,6 +18,7 @@ def update_left_stick(b1, b2):
 
 
 def update_2nd_byte(b):
+    print(b)
     if b[0] == '0' and b[1:] != '1111111':
         return 1
     if b[0] == '1' and b[1:] != '0000000':
@@ -26,6 +27,7 @@ def update_2nd_byte(b):
 
 
 def update_3rd_byte(b):
+    print(b)
     if b[0] == '1':
         return 3
     if b[0] == '0' and b[1:] != '1111111':
@@ -34,6 +36,7 @@ def update_3rd_byte(b):
 
 
 def update_4th_byte(b):
+    print(b)
     if b[0] == '0' and b[1:] != '1111111':
         return '{:02b}'.format(1)
     if b[0] == '1' and b[1:] != '0000000':
@@ -42,6 +45,7 @@ def update_4th_byte(b):
 
 
 def update_5th_byte(b):
+    print(b)
     if b[0] == '1' and b[1:] != '0000000':
         return '{:02b}'.format(1)
     if b[0] == '0' and b[1:] != '1111111':
@@ -50,6 +54,7 @@ def update_5th_byte(b):
 
 
 def update_6th_or_7th_byte(b):
+    print(b)
     if b != '00000000':
         return '1'
     return '0'
@@ -82,7 +87,7 @@ if len(args) > 2:
     input_file_name = args[1]
     output_file_name = args[2]
     input_file = open(input_file_name, 'r')
-    output_file = open(output_file_name, 'r')
+    output_file = open(output_file_name, 'w')
 
     for line in input_file:
         line = line.strip()
