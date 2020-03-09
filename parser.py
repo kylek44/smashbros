@@ -91,8 +91,8 @@ if len(args) > 2:
 
     for line in input_file:
         line = line.strip()
-        input_bytes = split_bytes(line)
-        new_bytes = reduce_bytes(input_bytes)
+        # input_bytes = split_bytes(line)
+        new_bytes = line.split(' ')
         print(' '.join(new_bytes))
 
     input_file.close()
