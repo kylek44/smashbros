@@ -51,8 +51,8 @@ def update_5th_byte(b):
 
 def update_6th_or_7th_byte(b):
     if b != '00000000':
-        return 1
-    return 0
+        return '1'
+    return '0'
 
 
 def split_bytes(b):
@@ -66,32 +66,46 @@ def split_bytes(b):
     return i_bytes
 
 
+# def reduce_bytes(b):
+#     n = update_0th_or_1st_byte(b[0]) + update_0th_or_1st_byte(b[1])
+#     n += update_left_stick(b[2], b[3])
+#     n += update_4th_byte(b[4])
+#     n += update_5th_byte(b[5])
+#     n += update_6th_or_7th_byte(b[6])
+#     n += update_6th_or_7th_byte(b[7])
+#     return n
 def reduce_bytes(b):
-    n = update_0th_or_1st_byte(b[0]) + update_0th_or_1st_byte(b[1])
-    n += update_left_stick(b[2], b[3])
-    n += update_4th_byte(b[4])
-    n += update_5th_byte(b[5])
-    n += update_6th_or_7th_byte(b[6])
-    n += update_6th_or_7th_byte(b[7])
-    return n
+    return [update_0th_or_1st_byte(b[0]), update_0th_or_1st_byte(b[1]), update_left_stick(b[2], b[3]), update_4th_byte(b[4]), update_5th_byte(b[5]), update_6th_or_7th_byte(b[6]), update_6th_or_7th_byte(b[7])]
 
 
 if len(args) > 2:
-    port = args[1]
-    arduino = serial.Serial(port, 115200, timeout=None)
-    with open(args[2]) as out:
-        bit = arduino.read(single_bit)
-        while bit[0] != ' ':
-            bit = arduino.read(single_bit)
-        while True:
-            bits = arduino.read(packet_size)
-            bits = bits.decode('utf-8', errors='ignore')
-            input_bytes = split_bytes(bits)
-            new_bytes = reduce_bytes(input_bytes)
-            print(' '.join(input_bytes))
-            # for x in input_bytes:
-            #     print(x, end=' ')
-            # print()
-            print(' '.join(new_bytes.split('')))
-            out.write(new_bytes)
-            out.write('\n')
+    input_file_name = args[1]
+    output_file_name = args[2]
+    input_file = open(input_file_name, 'r')
+    output_file = open(output_file_name, 'r')
+
+    for line in input_file:
+        line = line.strip()
+        input_bytes = split_bytes(line)
+        new_bytes = reduce_bytes(input_bytes)
+        print(' '.join(new_bytes))
+
+    input_file.close()
+    output_file.close()
+
+    # with open(args[2]) as out:
+    #     bit = arduino.read(single_bit)
+    #     while bit[0] != ' ':
+    #         bit = arduino.read(single_bit)
+    #     while True:
+    #         bits = arduino.read(packet_size)
+    #         bits = bits.decode('utf-8', errors='ignore')
+    #         input_bytes = split_bytes(bits)
+    #         new_bytes = reduce_bytes(input_bytes)
+    #         print(' '.join(input_bytes))
+    #         # for x in input_bytes:
+    #         #     print(x, end=' ')
+    #         # print()
+    #         print(' '.join(new_bytes))
+    #         out.write(new_bytes)
+    #         out.write('\n')
