@@ -91,7 +91,7 @@ if len(args) > 2:
 
     for line in input_file:
         line = line.strip()
-        if len(line) == 64:
+        if len(line) == 71:
             input_bytes = line.split(' ')
             new_bytes = reduce_bytes(input_bytes)
             print(' '.join(new_bytes))

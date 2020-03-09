@@ -1,11 +1,12 @@
 import serial
 import syslog
 import time
+import sys
 
-port = '/dev/'
+port = '/dev/ttyACM0'
 arduino = serial.Serial(port, 115200, timeout=None)
 
-f = open('test.txt', 'w')
+f = open(sys.argv[1], 'w+')
 
 # msg = arduino.read(24)
 # print(str(msg) + '\n\n')
