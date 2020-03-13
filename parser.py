@@ -94,7 +94,7 @@ if len(args) > 2:
         if len(line) == 71:
             input_bytes = line.split(' ')
             new_bytes = reduce_bytes(input_bytes)
-            print(' '.join(new_bytes))
+           # print(' '.join(new_bytes))
             for b in new_bytes:
                 output_file.write(b)
             output_file.write('\n')
